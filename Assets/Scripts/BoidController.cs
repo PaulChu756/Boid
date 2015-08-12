@@ -21,34 +21,16 @@ public class BoidController : MonoBehaviour
     Vector3 v3 = Vector3.zero;
     Vector3 v4 = Vector3.zero;
 
-    Vector3 boundingBox(GameObject box) // Of the box, it will use force to push back boids.
+    Vector3 boundingBox(GameObject bird) // Of the box, it will use force to push back boids.
     {
         Vector3 v = Vector3.zero;
 
-        if (box.transform.position.x < Xmin)
-        {
-            v.x = 10;
-        }
-        else if (box.transform.position.x > Xmax)
-        {
-            v.x = -10;
-        }
-        if (box.transform.position.y < Ymin)
-        {
-            v.y = 10;
-        }
-        else if (box.transform.position.y > Ymax)
-        {
-            v.y = -10;
-        }
-        if(box.transform.position.z < Zmin)
-        {
-            v.z = 10;
-        }
-        else if (box.transform.position.z > Zmax)
-        {
-            v.z = -10;
-        }
+        if (bird.transform.position.x < Xmin)       {v.x = 1;}
+        else if (bird.transform.position.x > Xmax)  {v.x = -1;}
+        if (bird.transform.position.y < Ymin)       {v.y = 1;}
+        else if (bird.transform.position.y > Ymax)  {v.y = -1;}
+        if (bird.transform.position.z < Zmin)       {v.z = 1;}
+        else if (bird.transform.position.z > Zmax)  {v.z = -1;}
         return v;
     }
 
@@ -61,12 +43,12 @@ public class BoidController : MonoBehaviour
     public Vector3 rule1(GameObject Cohesion) // Rule1  = COHESION!
     {
         Vector3 center = Vector3.zero; // Center of mass
-        if (Target)
-        {
-            return (Target.transform.position - Cohesion.transform.position) / 100.0f;
-        }
+        //if (Target)
+        //{
+        //    return (Target.transform.position - Cohesion.transform.position) / 100.0f;
+        //}
 
-        else
+        //else
             foreach (GameObject currentboid in boids)
             {
                 if (currentboid != Cohesion)
@@ -131,6 +113,7 @@ public class BoidController : MonoBehaviour
             v1 = rule1(cookies) * Cohesion * cohesionslider.value; // Cohesion
             v2 = rule2(cookies) * Separtion * separtionslider.value;
             v3 = rule3(cookies) * Aligment * alignmentslider.value;
+            v4 = boundingBox(cookies);
             cookies.GetComponent<Boid>().Vel = cookies.GetComponent<Boid>().Vel + v1 + v2 + v3 + v4; // Velocity + the first rule = Cohesion
             l_Vel(cookies);
             cookies.transform.position += cookies.GetComponent<Boid>().Vel; // Adding the pos + Vel
