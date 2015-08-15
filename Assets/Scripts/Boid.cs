@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Boid : MonoBehaviour 
 {
-    //Vector3 pos; We use the Transform.position
+
     public Vector3 Vel;
 
    

@@ -47,9 +47,16 @@ public class BoidController : MonoBehaviour
         }
         boids.Clear();
     }
+
     void Start()
     {
-       
+          //GameObject bird2;
+          //for (int i = 0; i < 200; i++) // Control how many number of boids on Screen
+          //{
+          //    bird2 = Instantiate(boid) as GameObject;
+          //    boids.Add(bird2);
+          //    transform.position = new Vector3(Random.Range(1, 5), Random.Range(1, 5), Random.Range(1, 5));
+          //}
     }
 
     void Update()
@@ -162,7 +169,7 @@ public class BoidController : MonoBehaviour
                 pv += currentboid.GetComponent<Boid>().Vel;
         }
         pv = pv / (boids.Count - 1); // Center of Mass
-        return (pv - Aligment.GetComponent<Boid>().Vel) / 8; // if / by 8 is 1/8, if 100, it's 1/100. 1 is GREAT! 
+        return (pv - Aligment.GetComponent<Boid>().Vel) / 1; // if / by 8 is 1/8, if 100, it's 1/100. 1 is GREAT! 
     }
 
   
