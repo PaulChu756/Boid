@@ -23,6 +23,11 @@ public class Boid : MonoBehaviour
     void Update()
     {
         transform.right = Vel.normalized;
+
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
 
   

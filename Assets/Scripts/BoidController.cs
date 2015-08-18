@@ -73,10 +73,13 @@ public class BoidController : MonoBehaviour
             cookies.GetComponent<Boid>().Vel = cookies.GetComponent<Boid>().Vel + v1 + v2 + v3 + v4; // Vel + all rules
             l_Vel(cookies);
             cookies.transform.position = cookies.transform.position + cookies.GetComponent<Boid>().Vel; // Adding the pos + Vel
-
         }
-
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
+
     void l_Vel(GameObject lv) // Velocity Limit
     {
         Vector3 panda = lv.GetComponent<Boid>().Vel;
