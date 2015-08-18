@@ -23,7 +23,7 @@ public class BoidController : MonoBehaviour
     /// <summary>
     /// create the list of boids in random positions
     /// </summary>
-    [ContextMenu ("populate")]
+    [ContextMenu("populate")] // Matthew's code
     void Populate()
     {
         GameObject bird;
@@ -38,7 +38,7 @@ public class BoidController : MonoBehaviour
         }
     }
 
-    [ContextMenu("Unpopulate")]
+    [ContextMenu("Unpopulate")] // Matthew's code
     void UnPopulate()
     {
         foreach(GameObject go in boids)
@@ -50,13 +50,16 @@ public class BoidController : MonoBehaviour
 
     void Start()
     {
-          //GameObject bird2;
-          //for (int i = 0; i < 200; i++) // Control how many number of boids on Screen
-          //{
-          //    bird2 = Instantiate(boid) as GameObject;
-          //    boids.Add(bird2);
-          //    transform.position = new Vector3(Random.Range(1, 5), Random.Range(1, 5), Random.Range(1, 5));
-          //}
+           GameObject bird;
+           for (int i = 0; i < 25; i++) // Control how many number of boids on Screen
+           {
+               bird = Instantiate(boid) as GameObject;
+               float rX = Random.Range(0, 10);
+               float rY = Random.Range(0, 10);
+               float rZ = Random.Range(0, 10);
+               bird.transform.position = new Vector3(rX, rY, rZ);
+               boids.Add(bird);
+           }
     }
 
     void Update()
@@ -83,15 +86,11 @@ public class BoidController : MonoBehaviour
         }
     }
 
-    void direction(GameObject dir)
-    {
-        
-    }
-
 
     Vector3 boundingBox(GameObject bird) // Of the box, it will use force to push back boids.
     {
         Vector3 v = Vector3.zero;
+        
 
         if (bird.transform.position.x < Xmin)
         {
@@ -151,7 +150,7 @@ public class BoidController : MonoBehaviour
         {
             if(currentboid != separtion)
             {
-                if (Distance(currentboid.transform.position, separtion.transform.position) < 5) // Set Distance away from each other
+                if (Distance(currentboid.transform.position, separtion.transform.position) < 7) // Set Distance away from each other
                 {
                     center = center - (currentboid.transform.position - separtion.transform.position);
                 }
