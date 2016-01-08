@@ -1,21 +1,40 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Flock</title>
-    <link rel="stylesheet" href="TemplateData/style.css">
     <link rel="shortcut icon" href="TemplateData/favicon.ico" />
     <script src="TemplateData/UnityProgress.js"></script>
+
+    <title>Boids by PaulChu756</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body class="template">
-    <p class="header"><span>Unity WebGL Player | </span>Flock</p>
-    <div class="template-wrap clear">
-    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="600px" width="960px"></canvas>
-      <div class="logo"></div>
-      <div class="fullscreen"><img src="TemplateData/fullscreen.png" width="38" height="38" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></div>
-      <div class="title">Flock</div>
-    </div>
+      <section class="page-header">
+          <h1 class="project-name">Boids</h1>
+          <h2 class="project-tagline"></h2>
+          <a href="https://github.com/PaulChu756/Boids" class="btn">View on GitHub</a>
+          <a href="https://github.com/PaulChu756/Boids/zipball/master" class="btn">Download .zip</a>
+          <a href="https://github.com/PaulChu756/Boids/tarball/master" class="btn">Download .tar.gz</a>
+      </section>
+
+      <p class="header"><span>Unity WebGL Player | </span>Flock</p>
+      <div class="template-wrap clear">
+          <center><canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="600px" width="1020px"></canvas></center>
+          <div class="logo"></div>
+          <div class="fullscreen"><img src="TemplateData/fullscreen.png" width="38" height="38" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></div>
+          <p>
+              <center><b>Intructions: Sliders increase/decrease changes the behavior of the boids.</b></center><br />
+              <center><b> Cohesion: Boids fly towards the center of mass of each other. </b></center><br />
+              <center><b> Separation: Boids attempt to keep a small distance away from each other. </b></center><br />
+              <center><b> Alignment: Boids will match each other's velocity with nearby boids. </b></center><br />
+              <center><b> Target: Boids will fly towards the target (It's the orange box). </b></center><br />
+          </p>
+      </div>
     <p class="footer">&laquo; created with <a href="http://unity3d.com/" title="Go to unity3d.com">Unity</a> &raquo;</p>
     <script type='text/javascript'>
   // connect to canvas
@@ -101,5 +120,397 @@ try {
   codeXHR.send(null);
 }
 </script>
+      <section class="main-content">
+          <p>
+              <h2>
+                  <strong>Paul Chu</strong><br />
+                  <strong>AIE Year 2 Programming</strong><br />
+              </h2>
+          </p>
+
+
+          <h1>
+              <a id="i0-requirements-documentation" class="anchor" href="#i0-requirements-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>I.0: Requirements Documentation</strong>
+          </h1>
+
+          <h2>
+              <a id="i1-description-of-the-problem" class="anchor" href="#i1-description-of-the-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>I.1: Description of the Problem</strong>
+          </h2>
+
+          <p>
+              Name: Boids<br />
+              Problem Statement: Boids is an Artificial intelligence behavior for flocking/herding behavior.<br />
+              Problem Specification:  These behaviors show similar behavior in flocks of birds or herds of cows/zebras. This simulation has three main behaviors that show to replicate life like forms.<br />
+          </p>
+
+
+          <h2>
+              <a id="i2-input-information" class="anchor" href="#i2-input-information" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>I.2: Input Information</strong>
+          </h2>
+          <p>
+              Name: Boids<br />
+              Description: Input of cohesion, separation, and alignment sliders.<br />
+              Type: Unity/Visual Studio<br />
+              Range of Acceptable Values: Values were determined by the math. I multiply it with a small number with all the rules, so the program doesn’t freak/glitch out.<br />
+          </p>
+
+          <h2>
+              <a id="i3-output-information" class="anchor" href="#i3-output-information" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>I.3: Output Information</strong>
+          </h2>
+
+          <p>
+              The program will output a flocking/herding behavior similar to birds or herds of cows.
+          </p>
+
+          <h2>
+              <a id="i4-user-interface-information" class="anchor" href="#i4-user-interface-information" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>I.4: User Interface Information</strong>
+          </h2>
+
+          <p>
+              A GUI will display for user after they input information. After, the user can increase/decrease values on via sliders displayed.
+          </p>
+
+          <h1>
+              <a id="ii0-design-documentation" class="anchor" href="#ii0-design-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>II.0: Design Documentation</strong>
+          </h1>
+
+          <h2>
+              <a id="ii1-system-architecture-description" class="anchor" href="#ii1-system-architecture-description" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>II.1: System Architecture Description</strong>
+          </h2>
+
+          <p>
+              The program is split into two different scripts for organization.<br />
+              The main script in this project is BoidController.cs, this is the main part of the project, it handles all the rules of this project.<br />
+          </p>
+
+          <p>
+              II.2: Information about the functions<br />
+              File: BoidController.cs<br />
+          </p>
+
+          <p>
+              Class:SpawnBoidControllerner<br />
+              Data Members: MonoBehaviour<br />
+          </p>
+
+          <p>
+              Name: boids<br />
+              Description: A list of GameObject<br />
+          </p>
+
+          <p>
+              Name: cohesionslider<br />
+              Description: A slider<br />
+          </p>
+
+          <p>
+              Name: separtionslider<br />
+              Description: A slider<br />
+          </p>
+
+          <p>
+              Name: alignmentslider<br />
+              Description: A slider<br />
+          </p>
+
+          <p>
+              Name: Target<br />
+              Description: A Gameobject<br />
+          </p>
+
+          <p>
+              Name: target<br />
+              Description: A Toggle<br />
+          </p>
+
+          <p>
+              Name: boid<br />
+              Description: A public Gameobject<br />
+          </p>
+
+          <p>
+              Name: Xmin, Ymin, Zmin, Xmax, Ymax, Zmax<br />
+              Description: Public integer that all equal zero.<br />
+          </p>
+
+          <p>
+              Name: v1, v2, v3, v4, center, pv<br />
+              Description: v1 to v1 are all velocities, center is the center velocity, pv is the perceived velocity.<br />
+          </p>
+
+          <p>
+              Function: Start<br />
+              Description: Spawns all the boids as the user begins the program.<br />
+          </p>
+
+          <p>
+              Function: Update<br />
+              Description: Applies all the rules to each boid each frame, and checks if the escape key is pressed to exit out the program.<br />
+          </p>
+
+          <p>
+              Function: l_Vel<br />
+              Parameters: GameObject lv<br />
+              Description: This is the Limited Velocity, if the boid passes this limit, it will change the velocity so the boids do not break the program.<br />
+          </p>
+
+          <p>
+              Function: Bounding Box<br />
+              Parameters: Gameobject boid<br />
+              Description: Creates a bounding box for the boids, it will push them back if they hit the bounding area.<br />
+          </p>
+
+          <p>
+              Function: Distance<br />
+              Parameters: Vector3 pos and pos2<br />
+              Description: Distance formula between two boids<br />
+          </p>
+
+          <p>
+              Function: rule1<br />
+              Parameters: Gameobject Cohesion<br />
+              Description: Finds the center of mass between all boids that are nearby, and the boids will fly closely to the center of mass.<br />
+          </p>
+
+          <p>
+              Function: rule2<br />
+              Parameters: Gameobject Separation<br />
+              Description: Sets a distance away from each boid using distance formula<br />
+          </p>
+
+          <p>
+              Function: rule3<br />
+              Parameters: Gameobject Alignment<br />
+              Description: Boids will fly in the same general direction of each other, instead of flying as individuals.<br />
+          </p>
+
+          <p>
+              File: Boid.cs<br />
+              Class: Boid<br />
+              Data Members: MonoBehaviour<br />
+          </p>
+
+          <p>
+              Name: Vel<br />
+              Description: Vector3 for velocity<br />
+          </p>
+
+          <p>
+              Function: Mag<br />
+              Parameters: Vector3 pos1<br />
+              Description: Getting the magnitude by from position and direction / vector3<br />
+          </p>
+
+          <p>
+              Function: Update<br />
+              Description: Gets all the boid gameobjects to face correctly right, and checks if the escape key is pressed to exit program.<br />
+          </p>
+
+          <h1>
+              <a id="iii0-implementation-documentation" class="anchor" href="#iii0-implementation-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>III.0: Implementation Documentation</strong>
+          </h1>
+
+          <h2>
+              <a id="iii1-program-code" class="anchor" href="#iii1-program-code" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>III.1 Program Code</strong>
+          </h2>
+
+          <h1>
+              <a id="file-boidcontrollercs" class="anchor" href="#file-boidcontrollercs" aria-hidden="true"><span class="octicon octicon-link"></span></a>File: BoidController.cs
+          </h1>
+
+<pre><code>
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+public class BoidController : MonoBehaviour
+{
+public List boids = new List();
+public Slider cohesionslider;
+public Slider separtionslider;
+public Slider alignmentslider;
+public GameObject Target;
+public Toggle target;
+public GameObject boid;
+public float cFac, sFac, aFac, vLim;
+public int Xmin = 0, Ymin = 0, Zmin = 0, Xmax = 0, Ymax = 0, Zmax = 0; // Draws Box
+Vector3 v1;
+Vector3 v2;
+Vector3 v3;
+Vector3 v4;
+Vector3 center;
+Vector3 pv;
+/// &lt;summary&gt;
+/// create the list of boids in random positions
+/// &lt;/summary&gt;
+[ContextMenu("populate")] // Matthew's code
+void Populate()
+{
+    GameObject bird;
+    for (int i = 0; i &lt; 25; i++) // Control how many number of boids on Screen
+    {
+        bird = Instantiate(boid) as GameObject;
+        float rX = Random.Range(0, 20);
+        float rY = Random.Range(0, 20);
+        float rZ = Random.Range(0, 20);
+        bird.transform.position = new Vector3(rX, rY, rZ);
+        boids.Add(bird);
+    }
+}
+[ContextMenu("Unpopulate")] // Matthew's code
+void UnPopulate()
+{
+    foreach(GameObject go in boids)
+    {
+        DestroyImmediate(go);
+    }
+    boids.Clear();
+}
+void Start()
+{
+       GameObject bird;
+       for (int i = 0; i &lt; 25; i++) // Control how many number of boids on Screen
+       {
+           bird = Instantiate(boid) as GameObject;
+           float rX = Random.Range(0, 20);
+           float rY = Random.Range(0, 20);
+           float rZ = Random.Range(0, 20);
+           bird.transform.position = new Vector3(rX, rY, rZ);
+           boids.Add(bird);
+       }
+}
+void Update()
+{
+    foreach (GameObject boid in boids)
+    {
+        v1 = rule1(boid) * cohesionslider.value * cFac; // Cohesion
+        v2 = rule2(boid) * separtionslider.value * sFac;
+        v3 = rule3(boid) * alignmentslider.value * aFac;
+        v4 = boundingBox(boid);
+        boid.GetComponent&lt;Boid&gt;().Vel = boid.GetComponent&lt;Boid&gt;().Vel + v1 + v2 + v3 + v4; // Vel + all rules
+        l_Vel(boid);
+        boid.transform.position = boid.transform.position + boid.GetComponent&lt;Boid&gt;().Vel; // Adding the pos + Vel
+    }
+    if (Input.GetKey("escape"))
+    {
+        Application.Quit();
+    }
+}
+void l_Vel(GameObject lv) // Velocity Limit
+{
+    Vector3 velocity = lv.GetComponent&lt;Boid&gt;().Vel;
+    if (velocity.magnitude &gt; vLim)
+    {
+        velocity = velocity.normalized * vLim;
+    }
+}
+Vector3 boundingBox(GameObject boid) // Of the box, it will use force to push back boids.
+{
+    Vector3 v = Vector3.zero;
+    if (boid.transform.position.x &lt; Xmin)
+    {
+        v.x =  Xmin - boid.transform.position.x;
+    }
+    else if (boid.transform.position.x &gt; Xmax)
+    {
+        v.x = Xmax - boid.transform.position.x;
+    }
+    if (boid.transform.position.y &lt; Ymin)
+    {
+        v.y = Ymin - boid.transform.position.y;
+    }
+    else if (boid.transform.position.y &gt; Ymax)
+    {
+        v.y = Ymax - boid.transform.position.y;
+    }
+    if (boid.transform.position.z &lt; Zmin)
+    {
+        v.z = Zmin - boid.transform.position.z;
+    }
+    else if (boid.transform.position.z &gt; Zmax)
+    {
+        v.z = Zmax - boid.transform.position.z;
+    }
+    return v;
+}
+public float Distance(Vector3 pos1, Vector3 pos2) // Distance Formula
+{
+    return Mathf.Sqrt((pos2.x - pos1.x) * (pos2.x - pos1.x)
+    + (pos2.y - pos1.y) * (pos2.y - pos1.y) + (pos2.z - pos1.z) * (pos2.z - pos1.z));
+}
+public Vector3 rule1(GameObject Cohesion) // Rule1  = COHESION!
+{
+     // Center of mass
+    if (target.isOn)
+    {
+        return (Target.transform.position - Cohesion.transform.position) / 100; // Moving 1% of boids to Target
+    }
+    else
+        foreach (GameObject currentboid in boids)
+        {
+            if (currentboid != Cohesion)
+                center = center + currentboid.transform.position;
+        }
+    center = center / (boids.Count - 1); // Center of Mass
+    return (center - Cohesion.transform.position) / 100; // Cohesion, Moving 1%
+}
+public Vector3 rule2(GameObject separtion)
+{
+    Vector3 center = new Vector3(0,0,0);
+    foreach (GameObject currentboid in boids)
+    {
+        if(currentboid != separtion)
+        {
+            if (Distance(currentboid.transform.position, separtion.transform.position) &lt; 7) // Set Distance away from each other
+            {
+                center = center - (currentboid.transform.position - separtion.transform.position);
+            }
+        }
+    }
+    return center;
+}
+public Vector3 rule3(GameObject Aligment)
+{
+    foreach (GameObject currentboid in boids)
+    {
+        if (currentboid != Aligment)
+            pv += currentboid.GetComponent&lt;Boid&gt;().Vel;
+    }
+    pv = pv / (boids.Count - 1); // Center of Mass
+    return (pv - Aligment.GetComponent&lt;Boid&gt;().Vel) / 1; // if / by 8 is 1/8, if 100, it's 1/100. 1 is GREAT!
+}
+</code></pre>
+
+          <h1>
+              <a id="file-boidcs" class="anchor" href="#file-boidcs" aria-hidden="true"><span class="octicon octicon-link"></span></a>File: Boid.cs
+          </h1>
+
+<pre><code>
+class Boid:
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+public class Boid : MonoBehaviour
+{
+    public Vector3 Vel;
+    float Mag(Vector3 pos1) // Magitude
+    {
+        return Mathf.Sqrt((pos1.x) * (pos1.x) + (pos1.y) * (pos1.y) + (pos1.z) * (pos1.z)); // Direction = Vector / mag // Size == mag = vector3 / direction
+    }
+    void Update()
+    {
+        transform.right = Vel.normalized;
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+    }
+}
+</code></pre>
+          <footer class="site-footer">
+              <span class="site-footer-owner"><a href="https://github.com/PaulChu756/Boids">Boids</a> is maintained by <a href="https://github.com/PaulChu756">PaulChu756</a>.</span>
+              <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+          </footer>
+      </section>
   </body>
 </html>
