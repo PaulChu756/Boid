@@ -2,11 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
+<<<<<<< HEAD
 public class Boid : MonoBehaviour 
+=======
+public class Boid : MonoBehaviour
+>>>>>>> origin/master
 {
 
     public Vector3 Vel;
 
+<<<<<<< HEAD
 
     float Mag(Vector3 pos1) // Magitude
     {
@@ -20,6 +25,13 @@ public class Boid : MonoBehaviour
     }
 
 
+=======
+    float Mag(Vector3 pos1) // Magitude
+    {
+        return Mathf.Sqrt((pos1.x) * (pos1.x) + (pos1.y) * (pos1.y) + (pos1.z) * (pos1.z)); // Direction = Vector / mag // Size == mag = vector3 / direction
+    }
+
+>>>>>>> origin/master
     void Update()
     {
         transform.right = Vel.normalized;
@@ -29,8 +41,11 @@ public class Boid : MonoBehaviour
             Application.Quit();
         }
     }
+<<<<<<< HEAD
 
   
 
 
+=======
+>>>>>>> origin/master
 }
