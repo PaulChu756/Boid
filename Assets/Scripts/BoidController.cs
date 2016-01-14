@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class BoidController : MonoBehaviour
 {
     public List<GameObject> boids = new List<GameObject>();
+    public int numOfBoids = 25;
     public Slider cohesionslider;
     public Slider separtionslider;
     public Slider alignmentslider;
@@ -30,7 +31,7 @@ public class BoidController : MonoBehaviour
     void Populate()
     {
         GameObject bird;
-        for (int i = 0; i < 25; i++) // Control how many number of boids on Screen
+        for (int i = 0; i < numOfBoids; i++) // Control how many number of boids on Screen
         {
             bird = Instantiate(boid) as GameObject;
             float rX = Random.Range(-10, 10);
@@ -55,7 +56,7 @@ public class BoidController : MonoBehaviour
     void Start()
     {
         GameObject bird;
-        for (int i = 0; i < 25; i++) // Control how many number of boids on Screen
+        for (int i = 0; i < numOfBoids; i++) // Control how many number of boids on Screen
         {
             bird = Instantiate(boid) as GameObject;
             float rX = Random.Range(0, 20);
